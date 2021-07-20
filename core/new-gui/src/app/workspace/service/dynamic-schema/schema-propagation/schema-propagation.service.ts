@@ -219,13 +219,13 @@ export class SchemaPropagationService {
 }
 
 // schema: an array of attribute names and types
-export interface SchemaAttribute extends Readonly<{
-  attributeName: string,
-  attributeType: 'string' | 'integer' | 'double' | 'boolean' | 'long' | 'timestamp' | 'ANY'
-}> {}
+export interface SchemaAttribute {
+  attributeName: string;
+  attributeType: 'string' | 'integer' | 'double' | 'boolean' | 'long' | 'timestamp' | 'ANY';
+}
 
 // input schema of an operator: an array of schemas at each input port
-export type OperatorInputSchema = ReadonlyArray<ReadonlyArray<SchemaAttribute> | null>;
+export type OperatorInputSchema = ReadonlyArray<ReadonlyArray<Readonly<SchemaAttribute>> | null>;
 
 /**
  * The backend interface of the return object of a successful execution

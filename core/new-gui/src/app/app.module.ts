@@ -73,7 +73,7 @@ import { OperatorLabelComponent } from './workspace/component/operator-panel/ope
 import { OperatorPanelComponent } from './workspace/component/operator-panel/operator-panel.component';
 import { ProductTourComponent } from './workspace/component/product-tour/product-tour.component';
 import { PropertyEditorComponent } from './workspace/component/property-editor/property-editor.component';
-import { TypecastingDisplayComponent } from './workspace/component/property-editor/typecasting-display/typecasting-display.component';
+import { TypeCastingDisplayComponent } from './workspace/component/property-editor/typecasting-display/type-casting-display.component';
 import { ResultPanelToggleComponent } from './workspace/component/result-panel-toggle/result-panel-toggle.component';
 import { ResultPanelComponent, RowModalComponent } from './workspace/component/result-panel/result-panel.component';
 import { VisualizationPanelContentComponent } from './workspace/component/visualization-panel-content/visualization-panel-content.component';
@@ -126,7 +126,7 @@ registerLocaleData(en);
     VisualizationPanelContentComponent,
     CodeareaCustomTemplateComponent,
     CodeEditorDialogComponent,
-    TypecastingDisplayComponent,
+    TypeCastingDisplayComponent,
     ResultDownloadComponent,
     NgbdModalShareAccessComponent
   ],

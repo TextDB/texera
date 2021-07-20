@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { SchemaPropagationService } from '../../../service/dynamic-schema/schema-propagation/schema-propagation.service';
 
-import { TypecastingDisplayComponent } from './typecasting-display.component';
+import { TypeCastingDisplayComponent } from './type-casting-display.component';
 import { WorkflowActionService } from '../../../service/workflow-graph/model/workflow-action.service';
 import { OperatorMetadataService } from '../../../service/operator-metadata/operator-metadata.service';
 import { StubOperatorMetadataService } from '../../../service/operator-metadata/stub-operator-metadata.service';
@@ -12,8 +12,8 @@ import { WorkflowUtilService } from '../../../service/workflow-graph/util/workfl
 import { LoggerModule } from 'ngx-logger';
 
 describe('TypecastingDisplayComponent', () => {
-  let component: TypecastingDisplayComponent;
-  let fixture: ComponentFixture<TypecastingDisplayComponent>;
+  let component: TypeCastingDisplayComponent;
+  let fixture: ComponentFixture<TypeCastingDisplayComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -29,13 +29,13 @@ describe('TypecastingDisplayComponent', () => {
         WorkflowActionService,
         SchemaPropagationService,
       ],
-      declarations: [ TypecastingDisplayComponent ]
+      declarations: [ TypeCastingDisplayComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TypecastingDisplayComponent);
+    fixture = TestBed.createComponent(TypeCastingDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

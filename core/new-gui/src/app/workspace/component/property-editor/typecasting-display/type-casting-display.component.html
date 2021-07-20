@@ -1,0 +1,16 @@
+<div *ngIf="displayTypeCastingSchemaInformation">
+  <nz-table #attributes [nzData]="schemaToDisplay">
+    <thead>
+    <tr>
+      <th>Attribute Name</th>
+      <th>Attribute Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let attribute of attributes.data">
+      <td>{{attribute.attributeName}}</td>
+      <td>{{attribute.attributeType}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

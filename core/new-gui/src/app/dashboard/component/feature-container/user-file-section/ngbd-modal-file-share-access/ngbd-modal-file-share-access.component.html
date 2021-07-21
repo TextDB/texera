@@ -1,0 +1,54 @@
+<div class="modal-header">
+  <h4 class="modal-title"
+      id="modal-basic-title">
+    Share This File With Someone
+  </h4>
+  <button (click)=
+            "activeModal.dismiss('Cross click')" aria-label="Close"
+          class="close" type="button">
+
+            <span aria-hidden="true">
+                ×
+            </span>
+  </button>
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="onClickShareWorkflow(file)" [formGroup]="shareForm">
+    <div class="form-group">
+
+      <label for="username">
+        Username of the target user to share
+      </label>
+      <input class="form-control" formControlName="username" id="username" type="text">
+      <br>
+      <label for="accessLevel">
+        Access Level
+      </label>
+      <div id="accessLevel">
+        <select class="custom-select" formControlName="accessLevel">
+          <option disabled value="">Choose Access Level To Be Shared</option>
+          <option (change)="changeType($event)" *ngFor="let accessLevel of accessLevels"
+                  [ngValue]="accessLevel">{{accessLevel}}</option>
+        </select>
+
+      </div>
+      <br>
+      <button class="btn
+                            btn-primary" type="submit">Share
+      </button>
+    </div>
+  </form>
+  <br>
+  <button (click)="onClickGetAllSharedAccess(file)" class="btn" type="button"><i class="fa fa-refresh"></i></button>
+  <label for="current-share">Shared Access:</label>
+  <ul class="current-share" id="current-share">
+    <li *ngFor="let userFileAccess of allUserFileAccess">
+      {{userFileAccess.username}} -> {{userFileAccess.fileAccess}}
+      <button (click)="onClickRemoveAccess(file, userFileAccess.username)" class="btn" type="button"><i class="fa fa-trash"></i>
+      </button>
+    </li>
+  </ul>
+
+
+</div>
+

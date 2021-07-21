@@ -131,6 +131,14 @@ class WorkflowResource {
     }
   }
 
+  private def workflowOfUserExists(wid: UInteger, uid: UInteger): Boolean = {
+    workflowOfUserDao.existsById(
+      SqlServer.createDSLContext
+        .newRecord(WORKFLOW_OF_USER.UID, WORKFLOW_OF_USER.WID)
+        .values(uid, wid)
+    )
+  }
+
   /**
     * This method creates and insert a new workflow to database
     *
@@ -189,14 +197,6 @@ class WorkflowResource {
       case None =>
         Response.status(Response.Status.UNAUTHORIZED).build()
     }
-  }
-
-  private def workflowOfUserExists(wid: UInteger, uid: UInteger): Boolean = {
-    workflowOfUserDao.existsById(
-      SqlServer.createDSLContext
-        .newRecord(WORKFLOW_OF_USER.UID, WORKFLOW_OF_USER.WID)
-        .values(uid, wid)
-    )
   }
 
 }

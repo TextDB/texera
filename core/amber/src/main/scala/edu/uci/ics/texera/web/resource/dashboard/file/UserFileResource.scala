@@ -2,12 +2,13 @@ package edu.uci.ics.texera.web.resource.dashboard.file
 
 import edu.uci.ics.texera.web.SqlServer
 import edu.uci.ics.texera.web.model.jooq.generated.Tables.FILE
-import edu.uci.ics.texera.web.model.jooq.generated.tables.daos.FileDao
+import edu.uci.ics.texera.web.model.jooq.generated.tables.daos.{FileDao, UserDao, UserFileAccessDao}
 import edu.uci.ics.texera.web.model.jooq.generated.tables.pojos.File
 import edu.uci.ics.texera.web.resource.auth.UserResource
 import io.dropwizard.jersey.sessions.Session
 import org.apache.commons.lang3.tuple.Pair
 import org.glassfish.jersey.media.multipart.{FormDataContentDisposition, FormDataParam}
+import org.jooq.DSLContext
 import org.jooq.types.UInteger
 
 import java.io.InputStream
@@ -27,6 +28,11 @@ import javax.ws.rs.core.{MediaType, Response}
 class UserFileResource {
 
   final private val fileDao = new FileDao(SqlServer.createDSLContext.configuration)
+  final private val userFileAccessDao = new UserFileAccessDao(
+    SqlServer.createDSLContext.configuration
+  )
+  final private val userDao = new UserDao(SqlServer.createDSLContext().configuration)
+  private var context: DSLContext = SqlServer.createDSLContext
 
   /**
     * This method will handle the request to upload a single file.
@@ -80,6 +86,12 @@ class UserFileResource {
     }
   }
 
+  private def getUserFileRecord(userID: UInteger): util.List[File] = {
+
+    // TODO: verify user in session?
+    fileDao.fetchByUid(userID)
+  }
+
   @DELETE
   @Path("/delete/{fileID}")
   def deleteUserFile(
@@ -119,12 +131,6 @@ class UserFileResource {
         Response.status(Response.Status.UNAUTHORIZED).build()
     }
 
-  }
-
-  private def getUserFileRecord(userID: UInteger): util.List[File] = {
-
-    // TODO: verify user in session?
-    fileDao.fetchByUid(userID)
   }
 
   private def validateFileName(fileName: String, userID: UInteger): Pair[Boolean, String] = {

@@ -1,0 +1,109 @@
+.modal-body {
+  word-wrap: break-word;
+}
+
+
+.file-upload-btn {
+  background-color: #1dc739
+}
+
+.or-separator {
+  font-family: Roboto, Arial, sans-serif;
+}
+
+.add-dictionary-container {
+  margin-top: 20px;
+}
+
+.add-dictionary-container>* {
+  display: flex;
+  flex-direction: column;
+  column-fill: balance;
+}
+
+.modal-body {
+  min-height: calc(100vh - 200px);
+  max-height: calc(100vh - 200px);
+  overflow: auto !important;
+}
+
+.drag-file-area {
+  text-align: center;
+  height: 200px;
+  font-size: 2em;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  border-radius: 50px;
+  border: dotted 5px lightblue;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.have-file-over {
+  background: lightgray;
+}
+
+.invalid-file {
+  // margin-left:10px;
+  padding-left: 10px;
+  color: orange;
+}
+
+.file-queue-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid grey;
+  margin-bottom: 5px;
+}
+
+.drag-file-container:last-child {
+  border-bottom: none;
+}
+
+.delete-all-invalid-button {
+  background: red;
+}
+
+.queue-delete-button {
+  background-color: red;
+  border-radius: 4px;
+  width: 50px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+
+.queue-delete-button:hover {
+  color: white;
+  // background-color: orangered;
+}
+
+.invalid-file-warning {
+  color: orange;
+}
+
+.bottom-size {
+  width: 75px;
+}
+
+#hide input[type=file] {
+  display: none;
+  margin: 10px;
+}
+
+#hide input[type=file]+label {
+  display: inline-block;
+  margin: 20px;
+  padding: 4px 32px;
+  background-color: #FFFFFF;
+  border: solid 1px #666F77;
+  border-radius: 6px;
+  color: #666F77;
+}
+
+#hide input[type=file]:active+label {
+  background-image: none;
+  background-color: #2D6C7A;
+  color: #FFFFFF;
+}

@@ -83,6 +83,7 @@ import { WorkspaceComponent } from './workspace/component/workspace.component';
 import { ResultDownloadComponent } from './workspace/component/navigation/result-download/result-download.component';
 import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
 import {NgbdModalShareAccessComponent} from './dashboard/component/feature-container/saved-workflow-section/ngbd-modal-share-access/ngbd-modal-share-access.component';
+import {NgbdModalFileShareAccessComponent} from "./dashboard/component/feature-container/user-file-section/ngbd-modal-file-share-access/ngbd-modal-file-share-access.component";
 
 registerLocaleData(en);
 
@@ -128,7 +129,8 @@ registerLocaleData(en);
     CodeEditorDialogComponent,
     TypecastingDisplayComponent,
     ResultDownloadComponent,
-    NgbdModalShareAccessComponent
+    NgbdModalShareAccessComponent,
+    NgbdModalFileShareAccessComponent
   ],
   imports: [
     BrowserModule,

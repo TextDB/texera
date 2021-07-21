@@ -7,6 +7,8 @@ DROP TABLE IF EXISTS `workflow_of_user`;
 DROP TABLE IF EXISTS `user_dictionary`;
 DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS `workflow`;
+DROP TABLE IF EXISTS `user_file_access`;
+DROP TABLE IF EXISTS `workflow_user_access`;
 
 SET GLOBAL time_zone = '+00:00'; # this line is mandatory
 
@@ -45,6 +47,16 @@ CREATE TABLE IF NOT EXISTS file
     PRIMARY KEY (`fid`),
     FOREIGN KEY (`uid`) REFERENCES user (`uid`) ON DELETE CASCADE
 ) ENGINE = INNODB;
+
+CREATE TABLE IF NOT EXISTS user_file_access(
+    `uid`         INT UNSIGNED                NOT NULL,
+    `fid`         INT UNSIGNED                NOT NULL,
+    `read_access`  BIT(1),
+    `write_access` BIT(1),
+    PRIMARY KEY (`uid`, `fid`),
+    FOREIGN KEY (`uid`) REFERENCES user (`uid`) ON DELETE CASCADE,
+    FOREIGN KEY (`fid`) REFERENCES file (`fid`) ON DELETE CASCADE
+)ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS keyword_dictionary
 (

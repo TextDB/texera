@@ -24,6 +24,10 @@
               </p>
             </div>
             <span class="gap-filler"></span>
+            <button (click)="onClickOpenShareAccess(userFile)" type="button" mat-button
+                    ngbTooltip="Share the workflow {{userFile.name}} to others" placement="bottom">
+              <i class="fa fa-share"></i>
+            </button>
             <button class="delete-workflow-btn" mat-button ngbTooltip="Delete the {{userFile.name}}" placement="bottom"
               (click)="deleteFile(userFile)"><i class="fa fa-trash"></i></button>
           </mat-list-item>

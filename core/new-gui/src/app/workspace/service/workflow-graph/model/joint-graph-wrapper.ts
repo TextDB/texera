@@ -1,8 +1,13 @@
+import { WorkflowEditorComponent } from './../../../component/workflow-editor/workflow-editor.component';
+import { WorkflowGraph } from './workflow-graph';
+import { Workflow } from './../../../../common/type/workflow';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Point } from '../../../types/workflow-common.interface';
-import * as joint from 'jointjs';
 import { ReplaySubject } from 'rxjs';
+import * as joint from 'jointjs';
+import * as dagre from 'dagre';
+import * as graphlib from 'graphlib';
 
 type operatorIDsType = { operatorIDs: string[] };
 type linkIDType = { linkID: string };
@@ -578,6 +583,19 @@ export class JointGraphWrapper {
     return this.zoomRatio;
   }
 
+  public setAutoLayout(): void {
+    joint.layout.DirectedGraph.layout(this.jointGraph, {
+      dagre: dagre,
+      graphlib: graphlib,
+      nodeSep: 100,
+      edgeSep: 150,
+      rankSep: 80,
+      ranker: 'tight-tree',
+      rankDir: 'LR',
+      resizeClusters: true,
+    });
+  }
+
   /**
    * This method will restore the default zoom ratio and offset for
    *  the jointjs paper by sending an event to restorePaperSubject.
@@ -642,6 +660,22 @@ export class JointGraphWrapper {
     }
     const element = <joint.dia.Element>cell;
     element.translate(offsetX, offsetY);
+  }
+
+  /**
+   * This method repositions the element according to given absolute positions.
+   * An element can be an operator or a group.
+   */
+  public setAbsolutePosition(elementID: string, posX: number, poY: number): void {
+    const cell: joint.dia.Cell | undefined = this.jointGraph.getCell(elementID);
+    if (!cell) {
+      throw new Error(`element with ID ${elementID} doesn't exist`);
+    }
+    if (!cell.isElement()) {
+      throw new Error(`${elementID} is not an element`);
+    }
+    const element = <joint.dia.Element>cell;
+    element.position(posX, poY);
   }
 
   /**

@@ -255,6 +255,17 @@ export class NavigationComponent implements OnInit {
   }
 
   /**
+   * This method will run the autoLayout function
+   *
+   */
+    public onClickAutoLayout(): void {
+      if (!this.hasOperators()) {
+        return;
+      }
+      this.workflowActionService.handleAutoLayout(this.workflowActionService.getWorkflow());
+  }
+
+  /**
    * This is the handler for the execution result download button.
    *
    * This sends the finished execution result ID to the backend to download execution result in

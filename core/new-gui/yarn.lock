@@ -2396,6 +2396,11 @@
     "@types/d3-transition" "^2"
     "@types/d3-zoom" "^2"
 
+"@types/dagre@^0.7.45":
+  version "0.7.45"
+  resolved "https://registry.yarnpkg.com/@types/dagre/-/dagre-0.7.45.tgz#e53593e3223b3fc154e0b57a39586ce6f8ea5522"
+  integrity sha512-hyVsm212IGTE2nYE1coMzGBSbes9neRSJDWn2UfyVZ4l0x5nIF/oWVY7RbKDhfNCdfZn4k0gdxvYWDWiSif+RA==
+
 "@types/file-saver@^2.0.0":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/file-saver/-/file-saver-2.0.3.tgz#b734c4f5a04d20615eaed3dc106e2ab321082009"
@@ -2437,6 +2442,11 @@
   dependencies:
     "@types/minimatch" "*"
     "@types/node" "*"
+
+"@types/graphlib@^2.1.8":
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/@types/graphlib/-/graphlib-2.1.8.tgz#9edd607e4b863a33b8b78cb08385c0be6896008a"
+  integrity sha512-8nbbyD3zABRA9ePoBgAl2ym8cIwKQXTfv1gaIRTdY99yEOCaHfmjBeRp+BIemS8NtOqoWK7mfzWxjNrxLK3T5w==
 
 "@types/hammerjs@^2.0.36":
   version "2.0.40"
@@ -5219,7 +5229,7 @@ d@1, d@^1.0.1:
     es5-ext "^0.10.50"
     type "^1.0.1"
 
-dagre@~0.8.5:
+dagre@^0.8.5, dagre@~0.8.5:
   version "0.8.5"
   resolved "https://registry.yarnpkg.com/dagre/-/dagre-0.8.5.tgz#ba30b0055dac12b6c1fcc247817442777d06afee"
   integrity sha512-/aTqmnRta7x7MCCpExk7HQL2O4owCT2h8NT//9I1OQ9vt29Pa0BzSAkR5lwFUcQ7491yVi/3CXU9jQ5o0Mn2Sw==

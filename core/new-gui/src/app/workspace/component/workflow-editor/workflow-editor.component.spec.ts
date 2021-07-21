@@ -20,11 +20,12 @@ import { ResultPanelToggleService } from '../../service/result-panel-toggle/resu
 import { marbles } from 'rxjs-marbles';
 
 import {
-  mockScanPredicate, mockPoint, mockScanResultLink, mockResultPredicate
+  mockScanPredicate, mockPoint, mockScanResultLink, mockResultPredicate, mockSentimentPredicate, mockScanSentimentLink
 } from '../../service/workflow-graph/model/mock-workflow-data';
 import { WorkflowStatusService } from '../../service/workflow-status/workflow-status.service';
 import { ExecuteWorkflowService } from '../../service/execute-workflow/execute-workflow.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { OperatorPredicate, OperatorLink } from '../../types/workflow-common.interface';
 
 describe('WorkflowEditorComponent', () => {
 
@@ -277,6 +278,86 @@ describe('WorkflowEditorComponent', () => {
       const operator2 = component.getJointPaper().getModelById(mockResultPredicate.operatorID);
       expect(operator1.attr('rect/stroke')).toEqual('#CFCFCF');
       expect(operator2.attr('rect/stroke')).toEqual('#CFCFCF');
+    });
+
+    it('should validate operator connections correctly', () => {
+
+      const mockScan2Predicate = {...mockScanPredicate, operatorID: 'mockScan2'};
+
+      workflowActionService.addOperator(mockScanPredicate, mockPoint);
+      workflowActionService.addOperator(mockScan2Predicate, mockPoint);
+      workflowActionService.addOperator(mockSentimentPredicate, mockPoint);
+      workflowActionService.addOperator(mockResultPredicate, mockPoint);
+
+      // should allow a link from scan to sentiment
+      expect(component['validateOperatorConnection']
+        (mockScanPredicate.operatorID, 'output-0', mockSentimentPredicate.operatorID, 'input-0')).toBeTrue();
+
+      // add a link from scan to sentiment
+      workflowActionService.addLink(mockScanSentimentLink);
+
+      // should not allow a link from scan to sentiment anymore
+      expect(component['validateOperatorConnection'](
+        mockScanPredicate.operatorID, 'output-0', mockSentimentPredicate.operatorID, 'input-0')).toBeFalse();
+
+      // should not allow a link from scan 2 to sentiment anymore
+      expect(component['validateOperatorConnection'](
+        mockScan2Predicate.operatorID, 'output-0', mockSentimentPredicate.operatorID, 'input-0')).toBeFalse();
+
+      // should still allow a link from scan to view result
+      expect(component['validateOperatorConnection'](
+        mockScanPredicate.operatorID, 'output-0', mockResultPredicate.operatorID, 'input-0')).toBeTrue();
+
+      // add a link from scan to view result
+      workflowActionService.addLink(mockScanResultLink);
+
+      // should not allow a link from scan to view result anymore
+      expect(component['validateOperatorConnection'](
+        mockScanPredicate.operatorID, 'output-0', mockResultPredicate.operatorID, 'input-0')).toBeFalse();
+
+      // should not allow a link from sentiment to view result anymore
+      expect(component['validateOperatorConnection'](
+        mockSentimentPredicate.operatorID, 'output-0', mockResultPredicate.operatorID, 'input-0')).toBeFalse();
+    });
+
+    it('should validate operator connections with ports that allow multi-inputs correctly', () => {
+
+      // union operator metadata specifys that input-0 port allows multiple inputs connected to the same port
+      const mockUnionPredicate: OperatorPredicate = {
+        operatorID: 'union-1',
+        operatorType: 'Union',
+        operatorProperties: {
+        },
+        inputPorts: [{portID: 'input-0'}],
+        outputPorts: [{portID: 'output-0'}],
+        showAdvanced: false,
+        isDisabled: false,
+      };
+
+      const jointGraphWrapper = workflowActionService.getJointGraphWrapper();
+      workflowActionService.addOperator(mockScanPredicate, mockPoint);
+      workflowActionService.addOperator(mockSentimentPredicate, mockPoint);
+      workflowActionService.addOperator(mockUnionPredicate, mockPoint);
+
+      // should allow a link from scan to union
+      expect(component['validateOperatorConnection'](
+        mockScanPredicate.operatorID, 'output-0', mockUnionPredicate.operatorID, 'input-0')).toBeTrue();
+
+      // should allow a link from sentiment to union
+      expect(component['validateOperatorConnection'](
+        mockSentimentPredicate.operatorID, 'output-0', mockUnionPredicate.operatorID, 'input-0')).toBeTrue();
+
+      // add a link from scan to union
+      const mockScanUnionLink: OperatorLink = {
+        linkID: 'mockScanUnion',
+        source: { operatorID: mockScanPredicate.operatorID, portID: 'output-0' },
+        target: { operatorID: mockUnionPredicate.operatorID, portID: 'input-0' },
+      };
+      workflowActionService.addLink(mockScanUnionLink);
+
+      // should still allow a link from sentiment to union
+      expect(component['validateOperatorConnection'](
+        mockSentimentPredicate.operatorID, 'output-0', mockUnionPredicate.operatorID, 'input-0')).toBeTrue();
     });
 
     it('should react to jointJS paper zoom event', marbles((m) => {

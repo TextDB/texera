@@ -189,6 +189,21 @@ export const mockMultiInputOutputSchema: OperatorSchema = {
   }
 };
 
+export const mockUnionSchema: OperatorSchema = {
+  operatorType: 'Union',
+  jsonSchema: {
+    properties: {},
+    type: 'object'
+  },
+  additionalMetadata: {
+    userFriendlyName: 'Union',
+    operatorDescription: 'Union multiple inputs',
+    operatorGroupName: 'Analysis',
+    inputPorts: [{allowMultiInputs: true}],
+    outputPorts: [{}]
+  }
+};
+
 export const mockOperatorSchemaList: ReadonlyArray<OperatorSchema> = [
   mockScanSourceSchema,
   mockFileSourceSchema,
@@ -198,6 +213,7 @@ export const mockOperatorSchemaList: ReadonlyArray<OperatorSchema> = [
   mockAggregationSchema,
   mockViewResultsSchema,
   mockMultiInputOutputSchema,
+  mockUnionSchema,
 ];
 
 export const mockOperatorGroup: ReadonlyArray<GroupInfo> = [
